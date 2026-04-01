@@ -1,10 +1,10 @@
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { SubscribeNewsletterBody } from "@workspace/api-zod";
 import { db, newsletterTable } from "@workspace/db";
 
 const router = Router();
 
-router.post("/newsletter", async (req, res) => {
+router.post("/newsletter", async (req: Request, res: Response) => {
   const parsed = SubscribeNewsletterBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: "Invalid email", details: parsed.error.issues });
