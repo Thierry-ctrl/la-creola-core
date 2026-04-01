@@ -1,0 +1,203 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: La Creola Restaurant API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: reservations
+    description: Reservation inquiry operations
+  - name: newsletter
+    description: Newsletter subscription operations
+  - name: inquiries
+    description: Private event and catering inquiry operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /reservations:
+    post:
+      operationId: createReservation
+      tags: [reservations]
+      summary: Submit a reservation inquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReservationRequest"
+      responses:
+        "201":
+          description: Reservation inquiry submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReservationResponse"
+        "400":
+          description: Validation error
+  /newsletter:
+    post:
+      operationId: subscribeNewsletter
+      tags: [newsletter]
+      summary: Subscribe to newsletter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewsletterRequest"
+      responses:
+        "201":
+          description: Subscribed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsletterResponse"
+        "400":
+          description: Validation error
+        "409":
+          description: Already subscribed
+  /inquiries:
+    post:
+      operationId: createInquiry
+      tags: [inquiries]
+      summary: Submit a private event or catering inquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InquiryRequest"
+      responses:
+        "201":
+          description: Inquiry submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InquiryResponse"
+        "400":
+          description: Validation error
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    ReservationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        guests:
+          type: integer
+          minimum: 1
+          maximum: 20
+        occasion:
+          type: string
+        notes:
+          type: string
+      required:
+        - name
+        - email
+        - phone
+        - date
+        - time
+        - guests
+    ReservationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+      required:
+        - id
+        - message
+    NewsletterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+      required:
+        - email
+    NewsletterResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+    InquiryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        eventType:
+          type: string
+          enum:
+            - private_dining
+            - corporate
+            - celebration
+            - catering
+            - other
+        guestCount:
+          type: integer
+          minimum: 1
+        preferredDate:
+          type: string
+          format: date
+        message:
+          type: string
+      required:
+        - name
+        - email
+        - phone
+        - eventType
+        - message
+    InquiryResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+      required:
+        - id
+        - message

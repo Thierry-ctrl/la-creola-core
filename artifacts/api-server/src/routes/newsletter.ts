@@ -1,0 +1,34 @@
+import { Router, type IRouter } from "express";
+import { SubscribeNewsletterBody } from "@workspace/api-zod";
+import { db, newsletterTable } from "@workspace/db";
+
+const router: IRouter = Router();
+
+router.post("/newsletter", async (req, res) => {
+  const parsed = SubscribeNewsletterBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: "Invalid email", details: parsed.error.issues });
+    return;
+  }
+
+  try {
+    await db
+      .insert(newsletterTable)
+      .values({
+        email: parsed.data.email,
+        firstName: parsed.data.firstName ?? null,
+      });
+
+    res.status(201).json({
+      message: "You're subscribed! Be the first to know about special events and seasonal menus.",
+    });
+  } catch (err: any) {
+    if (err?.code === "23505") {
+      res.status(409).json({ message: "This email is already subscribed." });
+      return;
+    }
+    throw err;
+  }
+});
+
+export default router;

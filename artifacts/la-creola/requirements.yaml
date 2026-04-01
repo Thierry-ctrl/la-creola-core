@@ -1,0 +1,38 @@
+packages:
+  "framer-motion": "For elegant page transitions and scroll-reveals matching the premium brand"
+  "react-hook-form": "For robust form state management"
+  "@hookform/resolvers": "For zod validation integration with react-hook-form"
+  "date-fns": "For date formatting in reservation forms"
+  "clsx": "For conditional class names"
+  "tailwind-merge": "For merging tailwind classes safely"
+
+images:
+  - path: "artifacts/la-creola/public/images/hero-sunset.png"
+    description: "Luxury restaurant rooftop overlooking lush green hills at sunset, golden hour light, warm glowing terracotta tones, elegant tables set"
+    aspect_ratio: "16:9"
+  - path: "artifacts/la-creola/public/images/dish-fusion.png"
+    description: "Close-up of elegant Afro-Asian fusion tapas dish on a rustic plate, warm lighting, fine dining presentation"
+    aspect_ratio: "4:3"
+  - path: "artifacts/la-creola/public/images/cocktail-exotic.png"
+    description: "Artisanal tropical cocktail with a flower garnish on a wooden bar, warm moody lighting"
+    aspect_ratio: "3:4"
+  - path: "artifacts/la-creola/public/images/tapas-spread.png"
+    description: "Beautiful spread of various tapas plates, colorful fresh ingredients, golden hour lighting"
+    aspect_ratio: "4:3"
+  - path: "artifacts/la-creola/public/images/gallery-dining.png"
+    description: "Warm luxury restaurant interior, golden hour lighting pouring through windows, terracotta and cream decor"
+    aspect_ratio: "16:9"
+  - path: "artifacts/la-creola/public/images/gallery-terrace.png"
+    description: "Beautiful outdoor dining pergola at sunset, string lights, overlooking hills"
+    aspect_ratio: "16:9"
+  - path: "artifacts/la-creola/public/images/portrait-chef.png"
+    description: "Elegant candid portrait of a chef in a luxury kitchen, warm lighting, confident"
+    aspect_ratio: "3:4"
+  - path: "artifacts/la-creola/public/images/event-bbq.png"
+    description: "Upscale live BBQ grill station at sunset on a rooftop, chef cooking, warm smoke and light"
+    aspect_ratio: "16:9"
+
+notes:
+  - Using generated @workspace/api-client-react hooks for backend integration
+  - Simulating WhatsApp integration via wa.me links
+  - All styling utilizes a custom "Golden Hour" palette
