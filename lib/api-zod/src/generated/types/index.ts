@@ -6,11 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from "./healthStatus";
-export * from "./inquiryRequest";
-export * from "./inquiryRequestEventType";
-export * from "./inquiryResponse";
-export * from "./newsletterRequest";
-export * from "./newsletterResponse";
-export * from "./reservationRequest";
-export * from "./reservationResponse";
+export * from "./healthStatus.js";
+export * from "./inquiryRequest.js";
+export * from "./inquiryRequestEventType.js";
+export * from "./inquiryResponse.js";
+export * from "./newsletterRequest.js";
+export * from "./newsletterResponse.js";
+export * from "./reservationRequest.js";
+export * from "./reservationResponse.js";

@@ -5,7 +5,7 @@
  * La Creola Restaurant API
  * OpenAPI spec version: 0.1.0
  */
-import type { InquiryRequestEventType } from "./inquiryRequestEventType";
+import type { InquiryRequestEventType } from "./inquiryRequestEventType.js";
 
 export interface InquiryRequest {
   /** @minLength 1 */
