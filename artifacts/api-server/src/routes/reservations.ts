@@ -1,4 +1,4 @@
-import { Router, type Request, type Response } from "express";
+import { Router } from "express";
 import { CreateReservationBody } from "@workspace/api-zod";
 import { db, reservationsTable } from "@workspace/db";
 
@@ -8,7 +8,7 @@ function toDateOnlyString(value: Date) {
   return value.toISOString().slice(0, 10);
 }
 
-router.post("/reservations", async (req: Request, res: Response) => {
+router.post("/reservations", async (req: any, res: any) => {
   const parsed = CreateReservationBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: "Invalid reservation data", details: parsed.error.issues });

@@ -1,4 +1,4 @@
-import { Router, type Request, type Response } from "express";
+import { Router } from "express";
 import { CreateInquiryBody } from "@workspace/api-zod";
 import { db, inquiriesTable } from "@workspace/db";
 
@@ -8,7 +8,7 @@ function toDateOnlyString(value: Date) {
   return value.toISOString().slice(0, 10);
 }
 
-router.post("/inquiries", async (req: Request, res: Response) => {
+router.post("/inquiries", async (req: any, res: any) => {
   const parsed = CreateInquiryBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: "Invalid inquiry data", details: parsed.error.issues });
