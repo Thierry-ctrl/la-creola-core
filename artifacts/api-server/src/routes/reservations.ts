@@ -1,8 +1,8 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { CreateReservationBody } from "@workspace/api-zod";
 import { db, reservationsTable } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 function toDateOnlyString(value: Date) {
   return value.toISOString().slice(0, 10);

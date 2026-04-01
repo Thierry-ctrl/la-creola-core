@@ -1,8 +1,8 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { SubscribeNewsletterBody } from "@workspace/api-zod";
 import { db, newsletterTable } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.post("/newsletter", async (req, res) => {
   const parsed = SubscribeNewsletterBody.safeParse(req.body);
