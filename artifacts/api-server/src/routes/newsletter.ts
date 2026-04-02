@@ -1,10 +1,15 @@
 import { Router } from "express";
 import { SubscribeNewsletterBody } from "@workspace/api-zod";
-import { db, newsletterTable } from "@workspace/db";
+import { db, getDatabaseConfigErrorMessage, newsletterTable } from "@workspace/db";
 
 const router = Router();
 
 router.post("/newsletter", async (req: any, res: any) => {
+  if (!db) {
+    res.status(503).json({ error: getDatabaseConfigErrorMessage() ?? "Database unavailable" });
+    return;
+  }
+
   const parsed = SubscribeNewsletterBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: "Invalid email", details: parsed.error.issues });

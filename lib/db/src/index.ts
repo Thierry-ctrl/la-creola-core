@@ -3,14 +3,25 @@ import pg from "pg";
 import * as schema from "./schema/index.js";
 
 const { Pool } = pg;
+const missingDatabaseUrlMessage =
+  "DATABASE_URL must be set. Did you forget to provision a database?";
+const databaseUrl = process.env.DATABASE_URL?.trim();
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+export const databaseConfigError = databaseUrl
+  ? null
+  : new Error(missingDatabaseUrlMessage);
+
+export const pool = databaseUrl
+  ? new Pool({ connectionString: databaseUrl })
+  : null;
+export const db = pool ? drizzle(pool, { schema }) : null;
+
+export function isDatabaseConfigured() {
+  return db !== null;
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+export function getDatabaseConfigErrorMessage() {
+  return databaseConfigError?.message ?? null;
+}
 
 export * from "./schema/index.js";

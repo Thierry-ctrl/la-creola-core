@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { CreateInquiryBody } from "@workspace/api-zod";
-import { db, inquiriesTable } from "@workspace/db";
+import { db, getDatabaseConfigErrorMessage, inquiriesTable } from "@workspace/db";
 
 const router = Router();
 
@@ -9,6 +9,11 @@ function toDateOnlyString(value: Date) {
 }
 
 router.post("/inquiries", async (req: any, res: any) => {
+  if (!db) {
+    res.status(503).json({ error: getDatabaseConfigErrorMessage() ?? "Database unavailable" });
+    return;
+  }
+
   const parsed = CreateInquiryBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: "Invalid inquiry data", details: parsed.error.issues });
