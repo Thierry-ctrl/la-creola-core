@@ -6,7 +6,11 @@ if (!process.env.DATABASE_URL) {
 }
 
 export default defineConfig({
-  schema: path.join(__dirname, "./src/schema/index.ts"),
+  schema: [
+    path.join(__dirname, "./src/schema/reservations.ts"),
+    path.join(__dirname, "./src/schema/newsletter.ts"),
+    path.join(__dirname, "./src/schema/inquiries.ts"),
+  ],
   dialect: "postgresql",
   dbCredentials: {
     url: process.env.DATABASE_URL,
